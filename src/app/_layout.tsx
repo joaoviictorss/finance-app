@@ -1,4 +1,5 @@
 import { Slot } from "expo-router";
+import { Stack } from "expo-router/stack";
 import { SessionProvider } from "../context/ctx";
 import "./global.css";
 
@@ -13,7 +14,7 @@ import {
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Root() {
   const [loaded, error] = useFonts({
@@ -24,6 +25,8 @@ export default function Root() {
     PoppinsSemiBold: Poppins_600SemiBold,
     PoppinsBold: Poppins_700Bold,
   });
+
+  SplashScreen.preventAutoHideAsync();
 
   useEffect(() => {
     if (loaded || error) {
@@ -37,7 +40,10 @@ export default function Root() {
 
   return (
     <SessionProvider>
-      <Slot />
+      <Stack>
+        <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+        <Stack.Screen name="register" options={{ headerShown: false }} />
+      </Stack>
     </SessionProvider>
   );
 }
