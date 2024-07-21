@@ -31,7 +31,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
   return (
     <AuthContext.Provider
       value={{
-        signIn: () => {
+        signIn: async () => {
           // Perform sign-in logic here
           setSession("xxx");
         },

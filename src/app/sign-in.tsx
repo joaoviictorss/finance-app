@@ -18,7 +18,7 @@ const SignIn = () => {
 
   return (
     <SafeAreaView className="flex-1 flex-col bg-customGreen-500">
-      <View className="items-center h-1/4 justify-center relative">
+      <View className="items-center h-52 justify-center relative">
         <Text className="text-customGreen-900 font-[PoppinsSemiBold] text-3xl">
           Bem vindo!
         </Text>

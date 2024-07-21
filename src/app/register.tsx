@@ -7,13 +7,13 @@ import { Link } from "expo-router";
 const RegisterPage = () => {
   return (
     <SafeAreaView className="flex-1 flex-col bg-customGreen-500">
-      <View className="items-center h-1/4 justify-center relative">
+      <View className="items-center h-52 justify-center relative">
         <Text className="text-customGreen-900 font-[PoppinsSemiBold] text-3xl">
           Criar conta
         </Text>
       </View>
 
-      <View className="bg-customGreen-200 flex-1 rounded-t-[40px] p-8 flex-col gap-4 pt-14">
+      <View className="bg-customGreen-200 flex-1 rounded-t-[40px] p-8 flex-col gap-4 pt-5">
         <CustomTextInput label="Nome" placeholder="Nome completo" />
         <CustomTextInput label="Email" placeholder="exemplo@email.com" />
         <CustomTextInput label="Data de nascimento" placeholder="DD/MM/AAAA" />
@@ -39,7 +39,7 @@ const RegisterPage = () => {
               Criar conta
             </Text>
           </Button>
-          <Text className="mt-4 font-[PoppinsLight] text-customGreen-900">
+          <Text className="mt-6 font-[PoppinsLight] text-customGreen-900">
             Ja possui uma conta?{" "}
             <Link href={"/sign-in"} className="color-customBlue-500">
               Entrar

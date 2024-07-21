@@ -1,4 +1,3 @@
-import { Slot } from "expo-router";
 import { Stack } from "expo-router/stack";
 import { SessionProvider } from "../context/ctx";
 import "./global.css";
@@ -40,7 +39,7 @@ export default function Root() {
 
   return (
     <SessionProvider>
-      <Stack>
+      <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="sign-in" options={{ headerShown: false }} />
         <Stack.Screen name="register" options={{ headerShown: false }} />
       </Stack>
