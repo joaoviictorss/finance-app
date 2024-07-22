@@ -1,4 +1,6 @@
+import { startTransition, useEffect, useState } from "react";
 import { Link, router } from "expo-router";
+import { useSession } from "../context/ctx";
 import {
   Image,
   Pressable,
@@ -7,14 +9,31 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { login } from "../utils/auth/login";
+import * as z from "zod";
+import { LoginSchema } from "../schemas";
 
-import { useSession } from "../context/ctx";
 import CustomTextInput from "../components/ui/custom-text-input";
 import PasswordInput from "../components/ui/password-input";
 import Button from "../components/ui/button";
 
 const SignIn = () => {
   const { signIn } = useSession();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    startTransition(() => {
+      login(values).then((data) => {
+        if (data?.error) {
+          alert(data.error);
+        } else {
+          signIn(data);
+          router.replace("/");
+        }
+      });
+    });
+  };
 
   return (
     <SafeAreaView className="flex-1 flex-col bg-customGreen-500">
@@ -25,16 +44,22 @@ const SignIn = () => {
       </View>
 
       <View className="bg-customGreen-200 flex-1 rounded-t-[40px] p-8 flex-col gap-4 pt-14">
-        <CustomTextInput label="Email" placeholder="exemplo@email.com" />
-        <PasswordInput label="Senha" />
+        <CustomTextInput
+          label="Email"
+          placeholder="exemplo@email.com"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <PasswordInput
+          label="Senha"
+          value={password}
+          onChangeText={setPassword}
+        />
 
         <View className="w-full flex-col mt-10 items-center gap-5">
           <Button
             variant="secondary"
-            onPress={() => {
-              signIn();
-              router.replace("/");
-            }}
+            onPress={() => onSubmit({ email, password })}
           >
             <Text className="text-customGreen-900 font-[PoppinsBold] text-lg">
               Entrar

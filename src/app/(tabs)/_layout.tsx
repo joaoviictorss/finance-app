@@ -15,5 +15,9 @@ export default function AppLayout() {
     return <Redirect href="/sign-in" />;
   }
 
-  return <NavBar />;
+  return (
+    <>
+      <NavBar />
+    </>
+  );
 }

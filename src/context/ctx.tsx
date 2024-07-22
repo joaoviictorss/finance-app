@@ -1,8 +1,12 @@
 import { useContext, createContext, type PropsWithChildren } from "react";
 import { useStorageState } from "../hooks/useStorageState";
+import { login } from "../utils/auth/login";
+import * as z from "zod";
+import { LoginSchema } from "../schemas";
+import { User } from "../types";
 
 const AuthContext = createContext<{
-  signIn: () => void;
+  signIn: (data: User) => void;
   signOut: () => void;
   session?: string | null;
   isLoading: boolean;
@@ -31,10 +35,10 @@ export function SessionProvider({ children }: PropsWithChildren) {
   return (
     <AuthContext.Provider
       value={{
-        signIn: async () => {
-          // Perform sign-in logic here
-          setSession("xxx");
+        signIn: (data) => {
+          setSession(JSON.stringify(data));
         },
+
         signOut: () => {
           setSession(null);
         },

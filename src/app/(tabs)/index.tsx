@@ -1,3 +1,4 @@
+import { useSession } from "@/src/context/ctx";
 import { getGreetingMessage } from "@/src/utils/greeting-message";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
@@ -6,7 +7,7 @@ import { Text, View, SafeAreaView, Pressable } from "react-native";
 
 export default function Index() {
   const [greetingMessage, setGreetingMessage] = useState("");
-
+  const { session } = useSession();
   useEffect(() => {
     setGreetingMessage(getGreetingMessage());
   }, []);
@@ -59,7 +60,7 @@ export default function Index() {
         </View>
       </View>
       <View className="bg-customGreen-200 flex-1 rounded-t-[40px] p-8 flex-col gap-4 pt-14 w-full relative">
-        <Text>Teste</Text>
+        <Text>{session}</Text>
       </View>
     </SafeAreaView>
   );

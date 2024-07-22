@@ -1,13 +1,13 @@
-import { Pressable, TextInput } from "react-native";
+import { Pressable, TextInput, TextInputProps } from "react-native";
 import InputContainer from "./input-container";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-interface PasswordInputProps {
+interface PasswordInputProps extends TextInputProps {
   label: string;
 }
 
-const PasswordInput = ({ label }: PasswordInputProps) => {
+const PasswordInput = ({ label, ...props }: PasswordInputProps) => {
   const [isHidePassword, setIsHidePassword] = useState(true);
 
   const togglePasswordVisibility = () => {
@@ -20,6 +20,7 @@ const PasswordInput = ({ label }: PasswordInputProps) => {
         placeholder="● ● ● ● ● ● ● ●"
         className="text-customGreen-900 ml-4 font-[PoppinsMedium] flex-1"
         secureTextEntry={isHidePassword}
+        {...props}
       />
       <Pressable onPress={togglePasswordVisibility}>
         <Ionicons
