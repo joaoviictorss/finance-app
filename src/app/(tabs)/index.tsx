@@ -1,66 +1,49 @@
+import Chart from "@/src/components/chart";
+import Header from "@/src/components/ui/header";
+import SwitchMenu from "@/src/components/ui/switch-menu";
 import { useSession } from "@/src/context/ctx";
-import { getGreetingMessage } from "@/src/utils/greeting-message";
-import { Ionicons } from "@expo/vector-icons";
-import { Image } from "expo-image";
-import { useEffect, useState } from "react";
-import { Text, View, SafeAreaView, Pressable } from "react-native";
+
+import { useState } from "react";
+import { View, SafeAreaView } from "react-native";
 
 export default function Index() {
-  const [greetingMessage, setGreetingMessage] = useState("");
   const { session } = useSession();
-  useEffect(() => {
-    setGreetingMessage(getGreetingMessage());
-  }, []);
+
+  const userInfo = JSON.parse(session!);
+
+  const [selectedOption, setSelectedOption] = useState("Dia");
+  const options = [
+    {
+      key: 1,
+      label: "Dia",
+      isSelected: selectedOption === "Dia",
+    },
+    {
+      key: 2,
+      label: "Semana",
+      isSelected: selectedOption === "Semana",
+    },
+    {
+      key: 3,
+      label: "Mês",
+      isSelected: selectedOption === "Mês",
+    },
+    {
+      key: 4,
+      label: "Ano",
+      isSelected: selectedOption === "Ano",
+    },
+  ];
 
   return (
     <SafeAreaView className="flex-1  bg-customGreen-500">
-      <View className="pt-16 p-8">
-        <View className="">
-          <Text className="text-customGreen-900 font-[PoppinsSemiBold] text-xl">
-            Olá, bem vindo de volta
-          </Text>
-          <Text className="text-customGreen-900 font-[PoppinsRegular] text-sm">
-            {greetingMessage}
-          </Text>
-          <View className="items-center justify-center  flex-row gap-8 mt-12">
-            <View className="">
-              <View className="flex-row items-center gap-2">
-                <Ionicons
-                  name="trending-up-outline"
-                  size={12}
-                  color="#052224"
-                />
-                <Text className="font-[PoppinsRegular] text-xs text-customGreen-900">
-                  Receita total
-                </Text>
-              </View>
-              <Text className="text-customGreen-200 text-2xl font-[PoppinsBold]">
-                $7,783.00
-              </Text>
-            </View>
-
-            <View className="w-px h-10 bg-customGreen-300" />
-
-            <View className="">
-              <View className="flex-row items-center gap-2">
-                <Ionicons
-                  name="trending-down-outline"
-                  size={12}
-                  color="#052224"
-                />
-                <Text className="font-[PoppinsRegular] text-xs text-customGreen-900">
-                  Despesas
-                </Text>
-              </View>
-              <Text className="text-customBlue-500 text-2xl font-[PoppinsSemiBold]">
-                -$1.187.40
-              </Text>
-            </View>
-          </View>
+      <Header userName={userInfo.full_name.split(" ")[0]} />
+      <View className="bg-customGreen-200 flex-1 rounded-t-[40px] p-4 flex-col gap-4 pt-8 w-full relative">
+        <View>
+          <SwitchMenu onOptionSelected={setSelectedOption} options={options} />
         </View>
-      </View>
-      <View className="bg-customGreen-200 flex-1 rounded-t-[40px] p-8 flex-col gap-4 pt-14 w-full relative">
-        <Text>{session}</Text>
+        <Chart />
+        <View></View>
       </View>
     </SafeAreaView>
   );
