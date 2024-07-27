@@ -3,6 +3,7 @@ import { Redirect, Stack } from "expo-router";
 
 import { useSession } from "../../context/ctx";
 import NavBar from "@/src/components/navigation/navbar";
+import { TransactionsProvider } from "@/src/context/transactions";
 
 export default function AppLayout() {
   const { session, isLoading } = useSession();
@@ -14,10 +15,13 @@ export default function AppLayout() {
   if (!session) {
     return <Redirect href="/sign-in" />;
   }
+  const userInfo = JSON.parse(session);
 
   return (
     <>
-      <NavBar />
+      <TransactionsProvider id={userInfo.id}>
+        <NavBar />
+      </TransactionsProvider>
     </>
   );
 }

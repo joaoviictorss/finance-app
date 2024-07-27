@@ -1,3 +1,5 @@
+import { useTransactions } from "@/src/context/transactions";
+import { formatter } from "@/src/utils/formater";
 import { Ionicons } from "@expo/vector-icons";
 import { Text, View } from "react-native";
 
@@ -6,6 +8,8 @@ interface HeaderProps {
 }
 
 const Header = ({ userName }: HeaderProps) => {
+  const { totalIncome, totalExpense, totalBalance } = useTransactions();
+
   return (
     <View className="pt-16 p-8">
       <View className="">
@@ -24,7 +28,7 @@ const Header = ({ userName }: HeaderProps) => {
               </Text>
             </View>
             <Text className="text-customGreen-200 text-2xl font-[PoppinsBold]">
-              $7,783.00
+              {formatter.format(totalBalance)}
             </Text>
           </View>
 
@@ -42,7 +46,8 @@ const Header = ({ userName }: HeaderProps) => {
               </Text>
             </View>
             <Text className="text-customBlue-500 text-2xl font-[PoppinsSemiBold]">
-              -$1.187.40
+              {"- "}
+              {formatter.format(totalExpense)}
             </Text>
           </View>
         </View>

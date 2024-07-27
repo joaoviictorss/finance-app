@@ -8,37 +8,14 @@ import { Link } from "expo-router";
 import { Image } from "expo-image";
 import TransactionItem from "@/src/components/ui/transaction-item";
 import { cn } from "@/src/lib/util";
+import { useTransactions } from "@/src/context/transactions";
 
 const Transactions = () => {
   const { session } = useSession();
-  const userInfo = JSON.parse(session!);
-  const [transactions, setTransactions] = useState<any[] | undefined>([]);
   const [filter, setFilter] = useState("");
 
-  useEffect(() => {
-    async function getTransactions() {
-      const transactions = await getAllTransactionsByUserId(userInfo.id);
-      setTransactions(transactions);
-    }
-    getTransactions();
-  }, []);
-
-  const depositTransactions = transactions?.filter(
-    (transaction) => transaction.type === "deposit"
-  );
-  const withdrawTransactions = transactions?.filter(
-    (transaction) => transaction.type === "withdraw"
-  );
-
-  const totalIncome = depositTransactions?.reduce((acc, curr) => {
-    return acc + curr.amount;
-  }, 0);
-
-  const totalExpense = withdrawTransactions?.reduce((acc, curr) => {
-    return acc + curr.amount;
-  }, 0);
-
-  const totalBalance = totalIncome - totalExpense;
+  const { totalIncome, totalExpense, totalBalance, transactions } =
+    useTransactions();
 
   const handleFilterClick = (type: string) => {
     setFilter((prevFilter) => (prevFilter === type ? "" : type));
@@ -99,7 +76,7 @@ const Transactions = () => {
             </Text>
             <Text
               className={cn(
-                "font-[PoppinsSemiBold] text-xl text-customBlue-500",
+                "font-[PoppinsSemiBold] text-xl text-customgreen-900",
                 filter === "deposit" && "text-white"
               )}
             >

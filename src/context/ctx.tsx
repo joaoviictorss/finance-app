@@ -1,8 +1,5 @@
 import { useContext, createContext, type PropsWithChildren } from "react";
 import { useStorageState } from "../hooks/useStorageState";
-import { login } from "../utils/auth/login";
-import * as z from "zod";
-import { LoginSchema } from "../schemas";
 import { User } from "../types";
 
 const AuthContext = createContext<{
