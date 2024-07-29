@@ -77,7 +77,7 @@ const NavBar = () => {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="(profile)"
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => (

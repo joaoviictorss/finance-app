@@ -1,7 +1,7 @@
 import { Text, TextInput, View } from "react-native";
 
 interface InputContainerProps {
-  label: string;
+  label?: string;
   children: React.ReactNode;
 }
 

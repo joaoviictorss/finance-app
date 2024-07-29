@@ -8,7 +8,7 @@ interface LogoutModalProps {
 
 const LogoutModal = ({ onClose }: LogoutModalProps) => {
   const { signOut } = useSession();
-
+  
   return (
     <View className="absolute top-0 left-0 right-0 bottom-0 bg-black/60 flex-col items-center justify-center z-20">
       <View className="bg-white rounded-3xl p-8 flex-col items-center justify-center gap-4">

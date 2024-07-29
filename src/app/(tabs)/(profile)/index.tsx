@@ -1,15 +1,17 @@
 import { Pressable, SafeAreaView, Text, View } from "react-native";
-import { useSession } from "../../context/ctx";
+import { useSession } from "../../../context/ctx";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import { Image } from "expo-image";
 import { useState } from "react";
 import LogoutModal from "@/src/components/ui/logout-modal";
+import { useRouter } from 'expo-router';
 
-const Profile = () => {
+const ProfilePage = () => {
   const { session, isLoading } = useSession();
   const userInfo = JSON.parse(session!);
   const navigation = useNavigation();
+  const router = useRouter();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -30,7 +32,7 @@ const Profile = () => {
             </Text>
             <Pressable className="bg-customGreen-200 rounded-full p-2 items-center justify-center">
               <Image
-                source={require("../../assets/icons/bell.svg")}
+                source={require("@/src/assets/icons/bell.svg")}
                 style={{ width: 20, height: 20 }}
                 contentFit="contain"
                 tintColor={"#031314"}
@@ -60,8 +62,9 @@ const Profile = () => {
               {userInfo.full_name.split(" ")[1]}
             </Text>
           </View>
-          <View>
-            <Pressable className="flex-row items-center gap-6 mt-8">
+
+          <View className="flex-col gap-8 mt-8">
+            <Pressable className="flex-row items-center gap-6" onPress={() => router.push("/user-config")}>
               <View className="bg-customBlue-400 p-4 rounded-3xl">
                 <Ionicons name="person" size={24} color="white" />
               </View>
@@ -69,7 +72,8 @@ const Profile = () => {
                 Editar Perfil
               </Text>
             </Pressable>
-            <Pressable className="flex-row items-center gap-6 mt-8">
+
+            <Pressable className="flex-row items-center gap-6" onPress={() => router.push("/settings")}>
               <View className="bg-customBlue-400 p-4 rounded-3xl">
                 <Ionicons name="settings-outline" size={24} color="white" />
               </View>
@@ -77,8 +81,9 @@ const Profile = () => {
                 Configurações
               </Text>
             </Pressable>
+
             <Pressable
-              className="flex-row items-center gap-6 mt-8"
+              className="flex-row items-center gap-6"
               onPress={handleOpenModal}
             >
               <View className="bg-customBlue-400 p-4 rounded-3xl">
@@ -96,4 +101,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;
