@@ -1,17 +1,15 @@
-import { useSession } from "@/src/context/ctx";
-import { getAllTransactionsByUserId } from "@/src/utils/transactions";
 import { Ionicons } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FlatList, Pressable, SafeAreaView, Text, View } from "react-native";
 import { formatter } from "@/src/utils/formater";
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import { Image } from "expo-image";
 import TransactionItem from "@/src/components/ui/transaction-item";
 import { cn } from "@/src/lib/util";
 import { useTransactions } from "@/src/context/transactions";
 
 const Transactions = () => {
-  const { session } = useSession();
+  const navigation = useNavigation();
   const [filter, setFilter] = useState("");
 
   const { totalIncome, totalExpense, totalBalance, transactions } =
@@ -25,13 +23,32 @@ const Transactions = () => {
     ? transactions?.filter((transaction) => transaction.type === filter)
     : transactions;
 
+  const groupedByMonth = filteredTransactions?.reduce((acc, transaction) => {
+    const date = new Date(transaction.created_at);
+    const yearMonth = `${date.getFullYear()}-${(date.getMonth() + 2) // Todo: Corrigir o fuso horário
+      .toString()
+      .padStart(2, "0")}`; // Formato: YYYY-MM
+      
+    const existingGroup = acc.find(
+      (group: { month: string }) => group.month === yearMonth
+    );
+
+    if (existingGroup) {
+      existingGroup.transactions.push(transaction);
+    } else {
+      acc.push({ month: yearMonth, transactions: [transaction] });
+    }
+
+    return acc;
+  }, []);
+
   return (
     <SafeAreaView className="flex-1 bg-customGreen-500">
       <View className="pt-16 p-8">
         <View className="flex-row items-center justify-between">
-          <Link href={"index"}>
+          <Pressable onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back-outline" size={24} color="#f1fff3" />
-          </Link>
+          </Pressable>
           <Text className="text-customGreen-900 font-[PoppinsSemiBold] text-xl">
             Transações
           </Text>
@@ -117,9 +134,9 @@ const Transactions = () => {
       </View>
       <View className="bg-customGreen-200 flex-1 rounded-t-[40px] p-8 flex-col gap-4 pt-2 w-full ">
         <FlatList
-          data={filteredTransactions}
+          data={groupedByMonth}
           renderItem={({ item }) => <TransactionItem data={item} />}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.month}
           style={{ marginBottom: 80 }}
         />
       </View>

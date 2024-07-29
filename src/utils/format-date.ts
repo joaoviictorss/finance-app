@@ -1,4 +1,4 @@
-function formatDate(date: Date) {
+export function formatDate(date: Date) {
   const formatedDate = new Date(date);
 
   const formatter = new Intl.DateTimeFormat("pt-BR", {
@@ -11,4 +11,13 @@ function formatDate(date: Date) {
   return formatter.format(formatedDate);
 }
 
-export default formatDate;
+export function formatMonth(date: string) {
+  const formatedDate = new Date(date);
+
+  const formatter = new Intl.DateTimeFormat("pt-BR", {
+    month: "long",
+    timeZone: "America/Sao_Paulo",
+  });
+
+  return formatter.format(formatedDate);
+}

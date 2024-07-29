@@ -3,7 +3,6 @@ import { useTransactions } from "@/src/context/transactions";
 
 const Analysis = () => {
   const { totalBalance } = useTransactions();
-  console.log(totalBalance);
   return (
     <SafeAreaView className="flex-1 items-center justify-center">
       <Text>{totalBalance.toFixed(2)}</Text>

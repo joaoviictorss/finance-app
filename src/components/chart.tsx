@@ -6,12 +6,15 @@ import { Text, View } from "react-native";
 import { getLastSixDays } from "../utils/getDates";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
+import { useTransactions } from "../context/transactions";
 
 interface ChartProps {
   data: any;
 }
 
 const Chart = () => {
+  const { transactions } = useTransactions();
+
   const font = useFont(Poppins_400Regular, 12);
   const data = Array.from({ length: 6 }, (_, i) => ({
     day: i + 1,
@@ -34,6 +37,7 @@ const Chart = () => {
               <Image
                 source={require("../assets/icons/search.svg")}
                 style={{ width: 20, height: 20 }}
+                contentFit="contain"
               />
             </Link>
             <Link
@@ -43,6 +47,7 @@ const Chart = () => {
               <Image
                 source={require("../assets/icons/calendar.svg")}
                 style={{ width: 20, height: 20 }}
+                contentFit="contain"
               />
             </Link>
           </View>
