@@ -29,7 +29,7 @@ const UserConfigPage = () => {
           </Text>
           <Pressable className="bg-customGreen-200 rounded-full p-2 items-center justify-center">
             <Image
-              source={require("../../../assets/icons/bell.svg")}
+              source={require("@/src/assets/icons/bell.svg")}
               style={{ width: 20, height: 20 }}
               contentFit="contain"
               tintColor={"#031314"}
@@ -91,7 +91,7 @@ const UserConfigPage = () => {
               <CustomSwitch />
             </View>
             <View className="mt-5 items-center justify-center">
-              <Button variant="secondary" >
+              <Button variant="secondary">
                 <Text>Salvar alterações</Text>
               </Button>
             </View>

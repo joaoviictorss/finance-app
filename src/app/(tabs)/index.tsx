@@ -43,7 +43,7 @@ export default function Index() {
         <View>
           <SwitchMenu onOptionSelected={setSelectedOption} options={options} />
         </View>
-        <Chart />
+        <Chart option={selectedOption}/>
       </View>
     </SafeAreaView>
   );

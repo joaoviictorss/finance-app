@@ -29,7 +29,7 @@ const SettingsPage = () => {
           </Text>
           <Pressable className="bg-customGreen-200 rounded-full p-2 items-center justify-center">
             <Image
-              source={require("../../../assets/icons/bell.svg")}
+              source={require("@/src/assets/icons/bell.svg")}
               style={{ width: 20, height: 20 }}
               contentFit="contain"
               tintColor={"#031314"}
@@ -38,7 +38,7 @@ const SettingsPage = () => {
         </View>
       </View>
       <View className="bg-customGreen-200 flex-1 rounded-t-[40px] p-8 flex-col gap-4 pt-2 w-full">
-        <View className="mt-20">
+        <View className="mt-14">
           {options.map((option, index) => (
             <View
               key={index}

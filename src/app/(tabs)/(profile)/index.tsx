@@ -5,7 +5,7 @@ import { Link, useNavigation } from "expo-router";
 import { Image } from "expo-image";
 import { useState } from "react";
 import LogoutModal from "@/src/components/ui/logout-modal";
-import { useRouter } from 'expo-router';
+import { useRouter } from "expo-router";
 
 const ProfilePage = () => {
   const { session, isLoading } = useSession();
@@ -64,7 +64,10 @@ const ProfilePage = () => {
           </View>
 
           <View className="flex-col gap-8 mt-8">
-            <Pressable className="flex-row items-center gap-6" onPress={() => router.push("/user-config")}>
+            <Pressable
+              className="flex-row items-center gap-6"
+              onPress={() => router.push("/user-config")}
+            >
               <View className="bg-customBlue-400 p-4 rounded-3xl">
                 <Ionicons name="person" size={24} color="white" />
               </View>
@@ -73,7 +76,10 @@ const ProfilePage = () => {
               </Text>
             </Pressable>
 
-            <Pressable className="flex-row items-center gap-6" onPress={() => router.push("/settings")}>
+            <Pressable
+              className="flex-row items-center gap-6"
+              onPress={() => router.push("/settings")}
+            >
               <View className="bg-customBlue-400 p-4 rounded-3xl">
                 <Ionicons name="settings-outline" size={24} color="white" />
               </View>

@@ -3,24 +3,44 @@ import { useFont } from "@shopify/react-native-skia";
 
 import { Poppins_400Regular } from "@expo-google-fonts/poppins";
 import { Text, View } from "react-native";
-import { getLastSixDays } from "../utils/getDates";
+import {
+  dataDays,
+  dataMonths,
+  dataWeeks,
+  dataYears,
+  getLastFourWeeks,
+  getLastFourYears,
+  getLastSixDays,
+  getLastSixMonths,
+} from "../utils/getDates";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { useTransactions } from "../context/transactions";
+import { useState } from "react";
+import { formatter } from "../utils/formater";
 
 interface ChartProps {
-  data: any;
+  option: string;
 }
 
-const Chart = () => {
+const Chart = ({ option }: ChartProps) => {
   const { transactions } = useTransactions();
 
   const font = useFont(Poppins_400Regular, 12);
-  const data = Array.from({ length: 6 }, (_, i) => ({
-    day: i + 1,
-    income: 40 + 30 * Math.random(),
-    expense: 40 + 30 * Math.random(),
-  }));
+
+  const data = (() => {
+    if (option === "Dia") {
+      return dataDays;
+    } else if (option === "Semana") {
+      return dataWeeks;
+    } else if (option === "Mês") {
+      return dataMonths;
+    } else if (option === "Ano") {
+      return dataYears;
+    } else {
+      return dataDays;
+    }
+  })();
 
   return (
     <>
@@ -60,10 +80,19 @@ const Chart = () => {
           axisOptions={{
             font,
             formatXLabel: (value) => {
-              const lastSixDays = getLastSixDays();
-              const dates = lastSixDays.map((date) =>
-                date.toLocaleDateString("pt-BR", { day: "numeric" })
-              );
+              const dates = (() => {
+                if (option === "Dia") {
+                  return getLastSixDays();
+                } else if (option === "Semana") {
+                  return getLastFourWeeks();
+                } else if (option === "Mês") {
+                  return getLastSixMonths();
+                } else if (option === "Ano") {
+                  return getLastFourYears();
+                } else {
+                  return getLastSixDays();
+                }
+              })();
               return dates[value];
             },
             lineColor: { grid: { x: "transparent", y: "#6DB6FE" }, frame: 0 },
@@ -103,7 +132,9 @@ const Chart = () => {
             Entradas
           </Text>
           <Text className="font-[PoppinsSemiBold] text-xl text-customGreen-900">
-            R$ {data.reduce((acum, item) => acum + item.income, 0).toFixed(2)}
+            {formatter.format(
+              data.reduce((acum, item) => acum + item.income, 0)
+            )}
           </Text>
         </View>
         <View className="flex-col gap-1 items-center justify-center">
@@ -115,7 +146,9 @@ const Chart = () => {
             Saídas
           </Text>
           <Text className="font-[PoppinsSemiBold] text-xl text-customBlue-500">
-            R$ {data.reduce((acum, item) => acum + item.expense, 0).toFixed(2)}
+            {formatter.format(
+              data.reduce((acum, item) => acum + item.expense, 0)
+            )}
           </Text>
         </View>
       </View>
