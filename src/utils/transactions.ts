@@ -1,3 +1,4 @@
+import { Transaction } from "../types";
 import { supabase } from "./supabase";
 
 export async function getAllTransactionsByUserId(userId: string) {
@@ -40,4 +41,44 @@ export async function getAllTransactionsByType(type: "deposit" | "withdraw") {
     .eq("type", type)
     .order("created_at", { ascending: false });
   return data;
+}
+
+export type typeOptions = "deposit" | "withdraw";
+
+type TransactionParams = {
+  user_id: string;
+  amount: number;
+  description: string;
+  created_at: Date;
+  category_name: string;
+  type: string;
+};
+
+export async function createTransaction({
+  user_id,
+  amount,
+  description,
+  category_name,
+  type,
+  created_at,
+}: TransactionParams) {
+  try {
+    const { data, error } = await supabase
+      .from("transactions")
+      .insert({
+        user_id,
+        amount,
+        description,
+        category_name,
+        type,
+        created_at,
+      })
+      .single();
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    alert(error);
+  }
 }

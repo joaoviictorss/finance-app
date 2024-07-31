@@ -11,6 +11,7 @@ const transactionsImages: Record<ImagePaths, ImageSource> = {
   medicine: require("../../assets/icons/medicine.svg"),
   food: require("../../assets/icons/food.svg"),
   entrertainment: require("../../assets/icons/entrertainment.svg"),
+  other: require("../../assets/icons/savings.svg"),
 };
 
 interface CustomImageProps {

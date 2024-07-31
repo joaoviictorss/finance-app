@@ -16,7 +16,6 @@ import {
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { useTransactions } from "../context/transactions";
-import { useState } from "react";
 import { formatter } from "../utils/formater";
 
 interface ChartProps {
@@ -29,13 +28,13 @@ const Chart = ({ option }: ChartProps) => {
   const font = useFont(Poppins_400Regular, 12);
 
   const data = (() => {
-    if (option === "Dia") {
+    if (option === "day") {
       return dataDays;
-    } else if (option === "Semana") {
+    } else if (option === "week") {
       return dataWeeks;
-    } else if (option === "Mês") {
+    } else if (option === "month") {
       return dataMonths;
-    } else if (option === "Ano") {
+    } else if (option === "year") {
       return dataYears;
     } else {
       return dataDays;

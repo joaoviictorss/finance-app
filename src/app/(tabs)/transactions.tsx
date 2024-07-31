@@ -1,6 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
-import { FlatList, Pressable, SafeAreaView, Text, View } from "react-native";
+import { useCallback, useState } from "react";
+import {
+  FlatList,
+  Pressable,
+  RefreshControl,
+  SafeAreaView,
+  Text,
+  View,
+} from "react-native";
 import { formatter } from "@/src/utils/formater";
 import { Link, useNavigation } from "expo-router";
 import { Image } from "expo-image";
@@ -28,7 +35,7 @@ const Transactions = () => {
     const yearMonth = `${date.getFullYear()}-${(date.getMonth() + 2) // Todo: Corrigir o fuso horário
       .toString()
       .padStart(2, "0")}`; // Formato: YYYY-MM
-      
+
     const existingGroup = acc.find(
       (group: { month: string }) => group.month === yearMonth
     );
@@ -40,6 +47,15 @@ const Transactions = () => {
     }
 
     return acc;
+  }, []);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
   }, []);
 
   return (
@@ -134,6 +150,12 @@ const Transactions = () => {
       </View>
       <View className="bg-customGreen-200 flex-1 rounded-t-[40px] p-8 flex-col gap-4 pt-2 w-full ">
         <FlatList
+          extraData={groupedByMonth}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
           data={groupedByMonth}
           renderItem={({ item }) => <TransactionItem data={item} />}
           keyExtractor={(item) => item.month}

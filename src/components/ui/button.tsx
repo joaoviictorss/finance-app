@@ -11,7 +11,7 @@ const Button = ({ variant, children, className, ...rest }: ButtonProps) => {
   return (
     <Pressable
       className={cn(
-        "rounded-[30px] items-center justify-center h-12 w-52",
+        "rounded-[30px] items-center justify-center h-12 w-52 disabled:bg-customGreen-300",
         variant === "primary" ? "bg-customGreen-300" : "bg-customGreen-500 ",
         className
       )}

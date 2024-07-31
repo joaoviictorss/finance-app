@@ -92,7 +92,6 @@ const NavBar = () => {
           headerShown: false,
         }}
       />
-      
     </Tabs>
   );
 };
@@ -110,11 +109,6 @@ const styles = StyleSheet.create({
     elevation: 0,
     borderTopColor: "transparent",
     position: "absolute",
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 0,
-    
   },
   icon: {},
   iconFocused: {

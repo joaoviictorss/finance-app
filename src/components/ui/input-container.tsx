@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from "react-native";
+import { Text, View } from "react-native";
 
 interface InputContainerProps {
   label?: string;
@@ -12,7 +12,7 @@ const InputContainer = ({ label, children }: InputContainerProps) => {
         {label}
       </Text>
 
-      <View className="bg-customGreen-300 rounded-[30px] px-6 py-3 justify-between flex-row items-center">
+      <View className="bg-customGreen-300 rounded-[30px] px-4 py-2 justify-between flex-row items-center">
         {children}
       </View>
     </View>

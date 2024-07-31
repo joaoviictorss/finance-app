@@ -12,27 +12,31 @@ export default function Index() {
 
   const userInfo = JSON.parse(session!);
 
-  const [selectedOption, setSelectedOption] = useState("Dia");
+  const [selectedOption, setSelectedOption] = useState("day");
   const options = [
     {
       key: 1,
       label: "Dia",
-      isSelected: selectedOption === "Dia",
+      isSelected: selectedOption === "day",
+      value: "day",
     },
     {
       key: 2,
       label: "Semana",
-      isSelected: selectedOption === "Semana",
+      isSelected: selectedOption === "week",
+      value: "week",
     },
     {
       key: 3,
       label: "Mês",
-      isSelected: selectedOption === "Mês",
+      isSelected: selectedOption === "month",
+      value: "month",
     },
     {
       key: 4,
       label: "Ano",
-      isSelected: selectedOption === "Ano",
+      isSelected: selectedOption === "year",
+      value: "year",
     },
   ];
 
@@ -43,7 +47,7 @@ export default function Index() {
         <View>
           <SwitchMenu onOptionSelected={setSelectedOption} options={options} />
         </View>
-        <Chart option={selectedOption}/>
+        <Chart option={selectedOption} />
       </View>
     </SafeAreaView>
   );
