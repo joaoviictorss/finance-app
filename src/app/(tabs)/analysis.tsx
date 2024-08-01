@@ -38,7 +38,7 @@ const Analysis = () => {
       return (
         transactionDate.getFullYear() === targetDate.getFullYear() &&
         transactionDate.getMonth() === targetDate.getMonth() &&
-        transactionDate.getDate() === targetDate.getDate()
+        transactionDate.getDate() === targetDate.getDate() + 1
       );
     });
   }
@@ -75,10 +75,13 @@ const Analysis = () => {
 
         {day && (
           <Text className="text-customGreen-900 font-[PoppinsSemiBold] text-base">
-            {new Date(day.dateString).toLocaleDateString("pt-BR", {
-              day: "2-digit",
-              month: "long",
-            })}
+            {new Date(day.year, day.month - 1, day.day).toLocaleDateString(
+              "in-IN",
+              {
+                day: "2-digit",
+                month: "long",
+              }
+            )}
           </Text>
         )}
 
