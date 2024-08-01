@@ -5,7 +5,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { getAllTransactionsByUserId } from "../utils/transactions";
+import {
+  getAllTransactionsByUserId,
+  TransactionParams,
+} from "../utils/transactions";
+import { supabase } from "../utils/supabase";
+import { set } from "zod";
 
 export const TransactionsContext = createContext<{
   transactions: any[] | undefined;
@@ -14,6 +19,7 @@ export const TransactionsContext = createContext<{
   totalExpense: number;
   totalIncome: number;
   totalBalance: number;
+  createTransaction: (params: TransactionParams) => Promise<void>;
 }>({
   transactions: undefined,
   depositTransactions: undefined,
@@ -21,6 +27,7 @@ export const TransactionsContext = createContext<{
   totalExpense: 0,
   totalIncome: 0,
   totalBalance: 0,
+  createTransaction: (params: TransactionParams) => Promise.resolve(),
 });
 
 interface TransactionsProps {
@@ -30,6 +37,7 @@ interface TransactionsProps {
 
 export function TransactionsProvider({ id, children }: TransactionsProps) {
   const [transactions, setTransactions] = useState<any[] | undefined>([]);
+  const [isAddedTransaction, setIsAddedTransaction] = useState(false);
 
   useEffect(() => {
     async function getTransactions() {
@@ -37,7 +45,7 @@ export function TransactionsProvider({ id, children }: TransactionsProps) {
       setTransactions(transactions);
     }
     getTransactions();
-  }, [id]);
+  }, [id, isAddedTransaction]);
 
   const depositTransactions = transactions?.filter(
     (transaction) => transaction.type === "deposit"
@@ -57,6 +65,37 @@ export function TransactionsProvider({ id, children }: TransactionsProps) {
 
   const totalBalance = totalIncome - totalExpense;
 
+  async function createTransaction({
+    user_id,
+    amount,
+    description,
+    category_name,
+    type,
+    created_at,
+  }: TransactionParams) {
+    try {
+      const { data, error } = await supabase
+        .from("transactions")
+        .insert({
+          user_id,
+          amount,
+          description,
+          category_name,
+          type,
+          created_at,
+        })
+        .single();
+
+      setIsAddedTransaction(true);
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      alert(error);
+    }
+  }
+
   return (
     <TransactionsContext.Provider
       value={{
@@ -66,6 +105,7 @@ export function TransactionsProvider({ id, children }: TransactionsProps) {
         totalIncome,
         totalExpense,
         totalBalance,
+        createTransaction,
       }}
     >
       {children}

@@ -1,7 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useNavigation, useRouter } from "expo-router";
-import { Pressable, SafeAreaView, Text, ScrollView, View } from "react-native";
+import {
+  Pressable,
+  SafeAreaView,
+  Text,
+  ScrollView,
+  View,
+  ToastAndroid,
+} from "react-native";
 import CustomTextInput from "@/src/components/ui/custom-text-input";
 import DateInput from "@/src/components/ui/date-input";
 import { useState } from "react";
@@ -10,13 +17,13 @@ import CustomCurrencyInput from "@/src/components/ui/custom-currency-input";
 import SwitchMenu from "@/src/components/ui/switch-menu";
 import Button from "@/src/components/ui/button";
 import { useSession } from "@/src/context/ctx";
-import { createTransaction, typeOptions } from "@/src/utils/transactions";
+import { useTransactions } from "@/src/context/transactions";
 
 const Categories = () => {
   const navigation = useNavigation();
-  const router = useRouter();
-  const { session, isLoading } = useSession();
+  const { session } = useSession();
   const userInfo = JSON.parse(session!);
+  const { createTransaction } = useTransactions();
   const [selectedOption, setSelectedOption] = useState("deposit");
   const options = [
     {
@@ -38,6 +45,10 @@ const Categories = () => {
   const [amount, setAmount] = useState<number | null>(null);
   const [description, setDescription] = useState("");
 
+  const showToast = () => {
+    ToastAndroid.show("Transação criada com sucesso", ToastAndroid.SHORT);
+  };
+
   const onSubmit = async () => {
     createTransaction({
       user_id: userInfo.id,
@@ -48,7 +59,7 @@ const Categories = () => {
       type: selectedOption,
     });
 
-    router.replace("/transactions");
+    showToast();
 
     setSelectedOption("deposit");
     setDate(new Date());

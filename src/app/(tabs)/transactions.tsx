@@ -14,6 +14,8 @@ import { Image } from "expo-image";
 import TransactionItem from "@/src/components/ui/transaction-item";
 import { cn } from "@/src/lib/util";
 import { useTransactions } from "@/src/context/transactions";
+import { formatMonth } from "@/src/utils/format-date";
+import { Transaction } from "@/src/types";
 
 const Transactions = () => {
   const navigation = useNavigation();
@@ -157,7 +159,19 @@ const Transactions = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
           data={groupedByMonth}
-          renderItem={({ item }) => <TransactionItem data={item} />}
+          renderItem={({ item }) => (
+            <>
+              <View className="mt-4 ml-1">
+                <Text className="font-[PoppinsMedium] text-base text-customGreen-900">
+                  {formatMonth(item.month).charAt(0).toUpperCase() +
+                    formatMonth(item.month).slice(1)}
+                </Text>
+              </View>
+              {item.transactions.map((transaction: Transaction) => (
+                <TransactionItem data={transaction} key={transaction.id} />
+              ))}
+            </>
+          )}
           keyExtractor={(item) => item.month}
           style={{ marginBottom: 80 }}
         />

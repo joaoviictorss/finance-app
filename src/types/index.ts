@@ -13,7 +13,7 @@ export type Transaction = {
   user_id: string;
   amount: number;
   description: string;
-  created_at: Date;
+  created_at: string;
   category_name: string;
   type: "deposit" | "withdraw";
 };
