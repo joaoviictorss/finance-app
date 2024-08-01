@@ -1,50 +1,86 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Finance app
 
-## Get started
+Aplicativo de controle de finanças permite aos usuários acompanhar suas finanças em tempo real e cadastrar novas transações com facilidade. Com uma interface intuitiva e várias maneiras de visualizar os dados, você pode gerenciar suas finanças de maneira eficiente e prática.
 
-1. Install dependencies
+
+## Funcionalidades
+
+### Login e Criação de Usuários
+
+Sistema de login e registro utilizando Supabase para armazenar os dados dos usuários e garantir a segurança dos seus dados financeiros.
+
+![Página de login](https://i.postimg.cc/9ff48kmf/Group-15.png)
+
+
+### Visualizações de Dados
+
+Página para visualização dos dados através de gráficos, permitindo escolher entre dados dos dias, semanas, meses ou anos anteriores.
+
+![Home.png](https://i.postimg.cc/5N3K8H6M/Home.png)
+
+
+### Transações por Dia
+
+Página com calendário dinâmico apresentando as transações presentes no dia selecionado.
+
+![Calendar.png](https://i.postimg.cc/RFBFtCP2/Calendar.png)
+
+
+### Transações por Mês
+
+Página com transações do usuário, podendo ser filtradas por despesas e entradas.
+
+![Transactions.png](https://i.postimg.cc/g2ySqN4j/Transactions.png)
+
+
+### Criação de Transações
+
+Página para criação de novas transações, com um formulário simples e rápido.
+
+![Create.png](https://i.postimg.cc/9Q7Mxgnd/Create.png)
+
+### Perfil do Usuário
+
+Página de perfil onde é possível editar as informações do usuário e alterar configurações do aplicativo.
+
+![Profile.png](https://i.postimg.cc/vBzDr1SC/Profile.png)
+
+
+## Stack utilizada
+
+**Front-end:** 
+    
+- **React Native:** Framework para desenvolvimento de aplicativos móveis que permite criar aplicativos nativos para iOS e Android utilizando JavaScript e React.
+- **NativeWind:**   Biblioteca para estilização de componentes no React Native, combinando o poder de Tailwind CSS com a simplicidade do estilo em linha.
+- **Expo Router:**  Ferramenta de roteamento para aplicativos React Native desenvolvidos com Expo, que facilita a navegação e organização de páginas.
+
+
+**Back-end:**
+
+- **Typescript:**   Toda a aplicação foi desenvolvida utilizando TypeScript, permitindo detectar erros de tipo durante a fase de desenvolvimento, antes mesmo de executar o código. Isso reduz a quantidade de bugs e facilita a depuração.
+- **Expo-crypto:**  Utilizado para criptografar as senhas dos usuários e armazená-las de forma segura no banco de dados.
+
+
+**Back-end:**
+
+- **Supabase:**     Banco de dados selecionado para armazenar os dados de cada usuário e todas as transações. As transações têm uma chave primária no user_id do usuário, garantindo que cada usuário possa acessar apenas as transações criadas por ele mesmo.
+
+
+## Como Rodar o Projeto
+
+1. **Clone o repositório:**
 
    ```bash
-   npm install
-   ```
+   git clone https://github.com/joaoviictorss/finance-app.git
+   cd nome-do-repositorio
+   
+2. **Instalar dependencias:**
 
-2. Start the app
+    ```bash
+    npm install
 
-   ```bash
+3.  **Inicie o servidor de desenvolvimento:**
+
+    ```bash
     npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
