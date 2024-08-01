@@ -80,13 +80,13 @@ const Chart = ({ option }: ChartProps) => {
             font,
             formatXLabel: (value) => {
               const dates = (() => {
-                if (option === "Dia") {
+                if (option === "day") {
                   return getLastSixDays();
-                } else if (option === "Semana") {
+                } else if (option === "week") {
                   return getLastFourWeeks();
-                } else if (option === "Mês") {
+                } else if (option === "month") {
                   return getLastSixMonths();
-                } else if (option === "Ano") {
+                } else if (option === "year") {
                   return getLastFourYears();
                 } else {
                   return getLastSixDays();
